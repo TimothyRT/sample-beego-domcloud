@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 	_ "sample-beego-domcloud/routers"
 	beego "github.com/beego/beego/v2/server/web"
 )
