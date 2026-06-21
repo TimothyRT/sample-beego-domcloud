@@ -6,7 +6,7 @@ nginx:
   root: public_html/public
   passenger:
     enabled: on
-    app_root: /home/witty-zef/public_html/public
+    app_root: /public_html/public
     app_start_command: ./app
     app_type: generic
 ```

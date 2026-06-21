@@ -6,6 +6,7 @@ import (
 )
 
 func main() {
+	fmt.Println("PORT =", os.Getenv("PORT"))
 	beego.Run()
 }
 
