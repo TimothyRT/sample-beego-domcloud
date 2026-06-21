@@ -78,4 +78,4 @@ jobs:
         source: "views/"
         target: "public_html/public"
     - name: Restart application
-      uses: restart
+      run: restart
