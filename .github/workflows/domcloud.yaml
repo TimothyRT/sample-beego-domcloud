@@ -78,4 +78,9 @@ jobs:
         source: "views/"
         target: "public_html/public"
     - name: Restart application
-      run: restart
+      uses: appleboy/ssh-action@v1
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.KEY }}
+        script: restart
