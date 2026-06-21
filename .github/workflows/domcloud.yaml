@@ -48,7 +48,7 @@ jobs:
         username: ${{ secrets.SSH_USER }}
         key: ${{ secrets.SSH_KEY }}
         port: 22
-        source: "app.exe"
+        source: "app"
         target: "public_html/public"
     - name: Deploy conf files
       uses: appleboy/scp-action@v1
