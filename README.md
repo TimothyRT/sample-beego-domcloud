@@ -9,8 +9,6 @@ nginx:
     app_root: /public_html/public
     app_start_command: env PORT=$PORT ./app
     app_type: generic
-    env_var_list:
-      - PORT=3000
 ```
 
 ```nginx
