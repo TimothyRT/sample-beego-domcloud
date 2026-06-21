@@ -1,5 +1,7 @@
 # https://github.com/github/gitignore/blob/main/Go.gitignore
 
+*.tar.gz
+
 # Binaries for programs and plugins
 *.exe
 *.exe~

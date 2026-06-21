@@ -1,0 +1,79 @@
+name: Build to DOM Cloud
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  copy:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        go-version: [ '1.19', '1.20', '1.21.x' ]
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v6
+    - name: Setup Go ${{ matrix.go-version }}
+      uses: actions/setup-go@v5
+      with:
+        go-version: ${{ matrix.go-version }}
+    - name: Display Go version
+      run: go version
+    - name: Install Beego
+      run: go install github.com/beego/bee/v2@latest
+    - name: Go to directory
+      run: cd $GITHUB_WORKSPACE
+    - name: Install dependencies
+      run: go mod tidy
+    - name: Build application
+      run: go build -o app.exe
+    - name: Test SSH
+      uses: appleboy/ssh-action@v1
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USER }}
+        key: ${{ secrets.SSH_KEY }}
+        script: |
+          whoami
+          pwd
+          echo $HOME
+          mkdir -p public_html/test
+          echo OK
+    - name: Deploy application
+      uses: appleboy/scp-action@v1
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USER }}
+        key: ${{ secrets.SSH_KEY }}
+        port: 22
+        source: "app.exe"
+        target: "public_html/public"
+    - name: Deploy conf files
+      uses: appleboy/scp-action@v1
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USER }}
+        key: ${{ secrets.SSH_KEY }}
+        port: 22
+        source: "conf/"
+        target: "public_html/public"
+    - name: Deploy static files
+      uses: appleboy/scp-action@v1
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USER }}
+        key: ${{ secrets.SSH_KEY }}
+        port: 22
+        source: "static/"
+        target: "public_html/public"
+    - name: Deploy view files
+      uses: appleboy/scp-action@v1
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USER }}
+        key: ${{ secrets.SSH_KEY }}
+        port: 22
+        source: "views/"
+        target: "public_html/public"
