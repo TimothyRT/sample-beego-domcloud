@@ -77,3 +77,5 @@ jobs:
         port: 22
         source: "views/"
         target: "public_html/public"
+    - name: Restart application
+      uses: restart
