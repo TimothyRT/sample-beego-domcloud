@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"os"
 	_ "sample-beego-domcloud/routers"
 	"strconv"
@@ -16,6 +15,5 @@ func main() {
 			beego.BConfig.Listen.HTTPPort = port
 		}
 	}
-	fmt.Println("PORT =", os.Getenv("PORT"))
 	beego.Run()
 }
