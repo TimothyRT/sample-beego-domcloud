@@ -8,7 +8,7 @@ on:
 
 jobs:
   copy:
-    runs-on: ubuntu-24.04-arm
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         go-version: [ '1.26' ]
