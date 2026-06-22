@@ -81,6 +81,7 @@
     </div>
   </header>
   <footer>
+    <img src="static/img/balloon.png" style="width: 200px;">
     <div class="author">
       Official website:
       <a href="http://{{.Website}}">{{.Website}}</a> /
